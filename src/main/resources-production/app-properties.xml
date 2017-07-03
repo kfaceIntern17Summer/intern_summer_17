@@ -3,6 +3,8 @@
 <properties>
     <comment>Basic Properties</comment>
     <!-- Server -->
-    <entry key="api.host">http://ten.portfolio1000.com</entry>
-    <entry key="img.file.location">C:\_data\30_tenonine\img\</entry>
+    <entry key="db.driverClassName">com.mysql.jdbc.Driver</entry>
+    <entry key="db.url">jdbc:mysql://localhost:3306/user_namager?zeroDateTimeBehavior=convertToNull&amp;useOldAliasMetadataBehavior=true&amp;characterEncoding=utf8</entry>
+    <entry key="db.username">intern</entry>
+    <entry key="db.password">intern</entry>
 </properties>
