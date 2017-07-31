@@ -3,3 +3,4 @@ out
 target
 src/main/resources-local
 src/main/webapp/META-INF
+classes
