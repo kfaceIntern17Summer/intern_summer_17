@@ -4,7 +4,105 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="sample">
-    <select id="selectUserList" parameterType="hashmap" resultType="hashmap">
-        SELECT * FROM test_user;
+
+    <select id="selectMemberList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        SELECT * FROM members;
     </select>
+
+    <insert id="insertMember" parameterType="java.util.HashMap">
+        INSERT INTO members (member_name,birthday,phone,email,createdDate,address,cell_idx) values(
+        #{member_name},#{birthday},#{phone},#{email},
+        #{createdDate},#{address},#{cell_idx}
+        )
+    </insert>
+
+    <insert id="insertCell" parameterType="java.util.HashMap">
+        INSERT INTO cells (cell_name,period)VALUES(
+        #{cell_name}, #{period}
+        );
+    </insert>
+
+    <select id="selectOneMember" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        select * from members where member_idx=#{memberID}
+    </select>
+
+    <update id="updateMember" parameterType="java.util.HashMap">
+        UPDATE members
+        SET member_name=#{member_name},birthday=#{birthday},phone=#{phone},email=#{email},address=#{address}
+        WHERE member_idx=#{member_idx}
+    </update>
+
+    <delete id="deleteMember" parameterType="java.lang.Integer">
+        DELETE FROM members WHERE member_idx=#{memberID};
+    </delete>
+
+    <delete id="deleteCell" parameterType="java.lang.Integer">
+        DELETE FROM cells WHERE cell_idx=#{cellID};
+    </delete>
+
+    <select id="selectCellList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        SELECT *FROM cells;
+    </select>
+
+    <update id="updateCell">
+        UPDATE cells A INNER JOIN members B ON A.cell_leader_idx=B.member_idx SET A.cell_leader_name=B.member_name;
+    </update>
+
+    <update id="updateCellMember" parameterType="java.util.HashMap">
+        UPDATE cellmembers A INNER JOIN members B ON A.member_idx=B.member_idx SET A.member_name=B.member_name, A.birthday=B.birthday;
+    </update>
+
+    <update id="updateCellMembers" parameterType="java.util.HashMap">
+        UPDATE cellmembers SET cell_idx=#{cell_idx} WHERE member_idx=#{member_idx};
+    </update>
+
+    <select id="selectCellListByID" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        SELECT * FROM cells WHERE cell_idx=#{cellID};
+    </select>
+
+    <select id="selectCellMemberList" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        SELECT * FROM cellmembers WHERE cell_idx=#{cellID};
+    </select>
+
+    <update id="setLeader" parameterType="java.util.HashMap">
+        UPDATE cells SET cell_leader_idx=#{member_idx} WHERE cell_idx=#{cell_idx};
+    </update>
+
+    <select id="selectReport" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        SELECT * FROM reports WHERE cell_idx=#{cellID}
+    </select>
+
+
+
+    <!--<delete id="delete" parameterType="String">-->
+        <!--DELETE FROM test_user WHERE user_name=#{user_name};-->
+    <!--</delete>-->
+
+    <!--<select id="selectUserList" parameterType="hashmap" resultType="hashmap">-->
+        <!--SELECT * FROM test_user;-->
+    <!--</select>-->
+
+    <!--<select id="selectUserPW" parameterType="hashmap" resultType="hashmap">-->
+        <!--SELECT * FROM test_user;-->
+    <!--</select>-->
+
+
+
+    <!--<select id="login" parameterType="hashmap" resultType="java.lang.Integer">-->
+        <!--SELECT count(*)-->
+        <!--FROM test_user-->
+        <!--WHERE user_manager.test_user.user_name = #{user_name}-->
+    <!--</select>-->
+
+    <!--<insert id="insert" parameterType="hashmap" useGeneratedKeys="true">-->
+        <!--INSERT INTO test_user (user_name,pw)-->
+        <!--VALUES (#{user_name},#{pw});-->
+    <!--</insert>-->
+
+    <!--<update id="update" parameterType="hashmap">-->
+        <!--UPDATE test_user-->
+        <!--SET pw=#{pw}-->
+        <!--WHERE user_name=#{user_name}-->
+    <!--</update>-->
+
 </mapper>

@@ -32,7 +32,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**")
                 .addResourceLocations("/WEB-INF/resources/");
-
+        //resource Handler 경로 설정
     }
 
     @Override
@@ -42,6 +42,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         viewResolver.setPrefix("/WEB-INF/views/jsp");
         viewResolver.setSuffix(".jsp");
         registry.viewResolver(viewResolver);
+        //view jsp경로 설정
     }
 
 

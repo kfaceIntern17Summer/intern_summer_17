@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment>Basic Properties</comment>
+    <!-- Server -->
+    <entry key="db.driverClassName">com.mysql.jdbc.Driver</entry>
+    <entry key="db.url">jdbc:mysql://localhost:3306/user_manager?zeroDateTimeBehavior=convertToNull&amp;useOldAliasMetadataBehavior=true&amp;characterEncoding=utf8</entry>
+    <entry key="db.username">intern</entry>
+    <entry key="db.password">intern</entry>
+</properties>
+<!--properties 설정 정보-->

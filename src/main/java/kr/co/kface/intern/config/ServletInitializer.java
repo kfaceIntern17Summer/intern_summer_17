@@ -31,5 +31,6 @@ public class ServletInitializer implements WebApplicationInitializer {
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", new DispatcherServlet(context));
         dispatcher.setLoadOnStartup(1);
         dispatcher.addMapping("/");
+        //Dispatcher방식 -->forward()forward()[전달하기]는 클라이언트가 요청하면서 전송한 데이터를 그대로 유지한다.
     }
 }

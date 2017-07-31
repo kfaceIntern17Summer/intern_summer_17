@@ -22,8 +22,9 @@ import java.util.Properties;
 @Configuration
 public class DatabaseConfig {
 
-    @Resource(name="appProperties")
+    @Resource(name = "appProperties")
     private Properties properties;
+
 
     @Bean
     public DataSource dataSourceSpied() {
@@ -39,6 +40,8 @@ public class DatabaseConfig {
         dataSource.setUsername(userName);
         dataSource.setPassword(password);
         return dataSource;
+
+        //app-Properties.xml 에서 얻어온 계정, driver를 set
     }
 
     @Bean
@@ -64,7 +67,7 @@ public class DatabaseConfig {
         factoryBean.setDataSource(dataSource);
         factoryBean.setConfigLocation(applicationContext.getResource("classpath:mybatis/configuration.xml"));
         factoryBean.setMapperLocations(applicationContext.getResources("classpath:mybatis/mappers/**/*.xml"));
-
+        //mybatis의 configuration과 mapper(쿼리문)파일을 set
 
         return factoryBean;
     }

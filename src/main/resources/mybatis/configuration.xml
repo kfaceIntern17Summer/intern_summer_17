@@ -3,10 +3,19 @@
 <configuration>
 <settings>
     <setting name="cacheEnabled" value="true" />
+    <!--각 매퍼에 설정된 캐시를 전역적으로 사용할지 말지-->
     <setting name="lazyLoadingEnabled" value="true" />
+    <!--지연로딩을 사용할지에 대한 여부-->
     <setting name="aggressiveLazyLoading" value="true" />
+    <!--메서드 호출이 객체의 모든 지연 속성을 로드할지에 대한 여부 -->
     <setting name="useGeneratedKeys" value="true" />
+    <!--생성키에 대한 JDBC지원을 허용, 생성키를 강제로 생성-->
     <setting name="defaultExecutorType" value="SIMPLE" />
+    <!--디폴트 실행자 설정-->
     <setting name="defaultStatementTimeout" value="20" />
+    <!--DB로의 응답을 얼마나 오래 기다릴지를 판단하는 타임아웃 설정-->
 </settings>
+
+
 </configuration>
+<!--runtime시 mybatis의 행위를 조정하는 setting 값-->

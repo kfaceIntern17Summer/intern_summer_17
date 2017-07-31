@@ -16,4 +16,5 @@ public class PropertiesConfig {
         bean.setLocation(new ClassPathResource("app-properties.xml"));
         return bean;
     }
+    //properties 설정 파일 set
 }
