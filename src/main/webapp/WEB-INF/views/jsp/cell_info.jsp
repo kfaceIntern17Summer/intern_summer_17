@@ -126,13 +126,13 @@
             </h1>
 
             <small>리더: <%
-                if (cell.get("cell_leader_name") == null) {
+                if (cell.get("member_name") == null) {
             %>
                 없음
                 <%
                 } else {
                 %>
-                <%=cell.get("cell_leader_name")%>
+                <%=cell.get("member_name")%>
                 <%
                     }
 

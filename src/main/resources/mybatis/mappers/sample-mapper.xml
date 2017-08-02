@@ -41,27 +41,29 @@
     </delete>
 
     <select id="selectCellList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-        SELECT *FROM cells;
+       SELECT * FROM cells as a
+       LEFT JOIN members as b ON a.cell_leader_idx = b.member_idx;
     </select>
 
-    <update id="updateCell">
-        UPDATE cells A INNER JOIN members B ON A.cell_leader_idx=B.member_idx SET A.cell_leader_name=B.member_name;
-    </update>
+    <!--<update id="updateCell">-->
+        <!--UPDATE cells A INNER JOIN members B ON A.cell_leader_idx=B.member_idx SET A.cell_leader_name=B.member_name;-->
+    <!--</update>-->
 
-    <update id="updateCellMember" parameterType="java.util.HashMap">
-        UPDATE cellmembers A INNER JOIN members B ON A.member_idx=B.member_idx SET A.member_name=B.member_name, A.birthday=B.birthday;
-    </update>
+    <!--<update id="updateCellMember" parameterType="java.util.HashMap">-->
+        <!--UPDATE cellmembers A INNER JOIN members B ON A.member_idx=B.member_idx SET A.member_name=B.member_name, A.birthday=B.birthday;-->
+    <!--</update>-->
 
     <update id="updateCellMembers" parameterType="java.util.HashMap">
         UPDATE cellmembers SET cell_idx=#{cell_idx} WHERE member_idx=#{member_idx};
     </update>
 
     <select id="selectCellListByID" parameterType="java.lang.Integer" resultType="java.util.HashMap">
-        SELECT * FROM cells WHERE cell_idx=#{cellID};
+        SELECT * FROM cells AS A LEFT JOIN members as B ON A.cell_leader_idx=b.member_idx WHERE A.cell_idx=#{cellID};
     </select>
 
     <select id="selectCellMemberList" parameterType="java.lang.Integer" resultType="java.util.HashMap">
-        SELECT * FROM cellmembers WHERE cell_idx=#{cellID};
+        SELECT * FROM cellmembers as a
+        LEFT JOIN members as b ON a.member_idx = b.member_idx WHERE a.cell_idx=#{cellID};
     </select>
 
     <update id="setLeader" parameterType="java.util.HashMap">

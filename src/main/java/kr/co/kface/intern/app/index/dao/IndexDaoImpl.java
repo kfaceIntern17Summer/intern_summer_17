@@ -58,8 +58,8 @@ public class IndexDaoImpl implements IndexDao {
     @Override
     public List<Map<String, Object>> selectCellList(int cellID) {
         SqlSession sqlSession = sessionFactory.openSession();
-        sqlSession.update("updateCell");
-        sqlSession.commit();
+//        sqlSession.update("updateCell");
+//        sqlSession.commit();
         List<Map<String, Object>> CellList = sqlSession.selectList("sample.selectCellListByID", cellID);
         sqlSession.close();
 
@@ -69,8 +69,8 @@ public class IndexDaoImpl implements IndexDao {
     @Override
     public List<Map<String, Object>> selectCellMember(int cellID) {
         SqlSession sqlSession = sessionFactory.openSession();
-        sqlSession.update("updateCellMember");
-        sqlSession.commit();
+        //sqlSession.update("updateCellMember");
+//        sqlSession.commit();
         List<Map<String, Object>> MemList = sqlSession.selectList("sample.selectCellMemberList", cellID);
 
         sqlSession.close();

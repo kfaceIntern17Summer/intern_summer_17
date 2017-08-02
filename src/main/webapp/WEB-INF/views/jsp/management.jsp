@@ -134,7 +134,7 @@
                             <tr>
                                 <td><a href="/cell/<%=cell.get("cell_idx")%>"><%=cell.get("cell_name")%>
                                 </a></td>
-                                <td><%=cell.get("cell_leader_name")%>
+                                <td><%=cell.get("member_name")%>
                                 </td>
                                 <td><%=cell.get("period")%>
                                 </td>

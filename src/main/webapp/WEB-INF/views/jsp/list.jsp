@@ -158,7 +158,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     try {
                         for (Map<String, Object> cell : cellData) {
                 %>
-                <small>셀 이름: <%=cell.get("cell_name")%> 리더: <%=cell.get("cell_leader_name")%>
+                <small>셀 이름: <%=cell.get("cell_name")%> 리더: <%=cell.get("member_name")%>
                 </small>
                 <%
                     }

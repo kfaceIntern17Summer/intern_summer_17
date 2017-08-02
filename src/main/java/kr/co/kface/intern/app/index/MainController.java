@@ -80,6 +80,9 @@ public class MainController {
     public ModelAndView leader(@PathVariable("cellID") int cellID)throws Exception {
         ModelAndView mav = new ModelAndView("/leader");
 
+        logger.info("params");
+        logger.info(cellID);
+
         mav.addObject("memberData", indexService.selectCellMember(cellID));
         return mav;
     }
@@ -88,7 +91,8 @@ public class MainController {
     public ModelAndView setLeader (@RequestParam HashMap<String, Object> params) throws Exception {
 
         ModelAndView mav = new ModelAndView("/close");
-        System.out.print("들어옴");
+
+        logger.info("params");
 
         indexService.setLeader(params);
 
