@@ -24,28 +24,6 @@ public class MainController {
     private IndexService indexService;
 
 
-// RESTful -->
-//
-//    @RequestMapping(value = "/login", method = RequestMethod.POST)
-//    public ModelAndView login(@RequestBody Map<String, Object> params) throws Exception {
-//        // Request Header, Body
-//
-//        ModelAndView mav = new ModelAndView("/main");
-//
-//        String user_name = (String) params.get("user_name");
-//        String pw = (String) params.get("password");
-//
-//        logger.info("main");
-//        logger.info("PW");
-//        logger.info("params");
-//
-//        System.out.println(user_name);
-//        System.out.println(pw);
-//        System.out.println(params);
-//
-//        return mav;
-//    }
-
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView main() throws Exception {
 
