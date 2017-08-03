@@ -29,6 +29,8 @@ public class IndexService {
         return indexDao.selectMemberList();
     }
 
+    public List<Map<String,Object>> selectMemberList(HashMap<String,Object>params){return indexDao.selectMemberList(params);}
+
     public List<Map<String, Object>> selectMember(int memberID) {
         return indexDao.selectMember(memberID);
     }

@@ -59,20 +59,20 @@
                                 <input class="col-md-2 col-xs-4 " type="text" name="member_name">
                             </div>
                             <br>
-                            <div class="form-group">
-                                <label class="col-md-4 col-xs-2 control-label">셀 선택</label>
+                            <%--<div class="form-group">--%>
+                                <%--<label class="col-md-4 col-xs-2 control-label">셀 선택</label>--%>
 
-                                <select name="cell_idx" size="5">
-                                    <%
-                                        for (Map<String, Object> cells : totalcellData) {
-                                    %>
-                                    <option value="<%=cells.get("cell_idx")%>"><%=cells.get("cell_name")%>
-                                    </option>
-                                    <%
-                                        }
-                                    %>
-                                </select>
-                            </div>
+                                <%--<select name="cell_idx" size="5">--%>
+                                    <%--<%--%>
+                                        <%--for (Map<String, Object> cells : totalcellData) {--%>
+                                    <%--%>--%>
+                                    <%--<option value="<%=cells.get("cell_idx")%>"><%=cells.get("cell_name")%>--%>
+                                    <%--</option>--%>
+                                    <%--<%--%>
+                                        <%--}--%>
+                                    <%--%>--%>
+                                <%--</select>--%>
+                            <%--</div>--%>
                             <br>
 
                             <div class="form-group">

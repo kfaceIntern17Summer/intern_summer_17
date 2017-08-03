@@ -6,13 +6,14 @@
 <mapper namespace="sample">
 
     <select id="selectMemberList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-        SELECT * FROM members;
+        SELECT  * FROM members AS A
+        LEFT JOIN cellmembers AS B ON A.member_idx=B.member_idx LEFT JOIN cells AS C ON B.cell_idx=C.cell_idx;
     </select>
 
     <insert id="insertMember" parameterType="java.util.HashMap">
-        INSERT INTO members (member_name,birthday,phone,email,createdDate,address,cell_idx) values(
+        INSERT INTO members (member_name,birthday,phone,email,createdDate,address) values(
         #{member_name},#{birthday},#{phone},#{email},
-        #{createdDate},#{address},#{cell_idx}
+        #{createdDate},#{address}
         )
     </insert>
 
@@ -46,11 +47,11 @@
     </select>
 
     <!--<update id="updateCell">-->
-        <!--UPDATE cells A INNER JOIN members B ON A.cell_leader_idx=B.member_idx SET A.cell_leader_name=B.member_name;-->
+    <!--UPDATE cells A INNER JOIN members B ON A.cell_leader_idx=B.member_idx SET A.cell_leader_name=B.member_name;-->
     <!--</update>-->
 
     <!--<update id="updateCellMember" parameterType="java.util.HashMap">-->
-        <!--UPDATE cellmembers A INNER JOIN members B ON A.member_idx=B.member_idx SET A.member_name=B.member_name, A.birthday=B.birthday;-->
+    <!--UPDATE cellmembers A INNER JOIN members B ON A.member_idx=B.member_idx SET A.member_name=B.member_name, A.birthday=B.birthday;-->
     <!--</update>-->
 
     <update id="updateCellMembers" parameterType="java.util.HashMap">
@@ -66,6 +67,22 @@
         LEFT JOIN members as b ON a.member_idx = b.member_idx WHERE a.cell_idx=#{cellID};
     </select>
 
+    <select id="selectMemberListByName" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        SELECT * FROM cellmembers as A
+        LEFT JOIN members as B ON A.member_idx = B.member_idx WHERE member_name LIKE CONCAT('%',CONCAT(#{keyWord},'%'));
+    </select>
+
+    <select id="selectMemberListByPhone" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        SELECT * FROM cellmembers as A
+        LEFT JOIN members as B ON A.member_idx = B.member_idx WHERE phone LIKE CONCAT('%',CONCAT(#{keyWord},'%'));
+    </select>
+
+    <select id="selectMemberListByCell" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        SELECT * FROM cellmembers as A
+        LEFT JOIN members AS B ON A.member_idx = B.member_idx LEFT JOIN cells AS C ON A.cell_idx=C.cell_idx
+        WHERE C.cell_name LIKE CONCAT('%',CONCAT(#{keyWord},'%'));
+    </select>
+
     <update id="setLeader" parameterType="java.util.HashMap">
         UPDATE cells SET cell_leader_idx=#{member_idx} WHERE cell_idx=#{cell_idx};
     </update>
@@ -75,36 +92,34 @@
     </select>
 
 
-
     <!--<delete id="delete" parameterType="String">-->
-        <!--DELETE FROM test_user WHERE user_name=#{user_name};-->
+    <!--DELETE FROM test_user WHERE user_name=#{user_name};-->
     <!--</delete>-->
 
     <!--<select id="selectUserList" parameterType="hashmap" resultType="hashmap">-->
-        <!--SELECT * FROM test_user;-->
+    <!--SELECT * FROM test_user;-->
     <!--</select>-->
 
     <!--<select id="selectUserPW" parameterType="hashmap" resultType="hashmap">-->
-        <!--SELECT * FROM test_user;-->
+    <!--SELECT * FROM test_user;-->
     <!--</select>-->
-
 
 
     <!--<select id="login" parameterType="hashmap" resultType="java.lang.Integer">-->
-        <!--SELECT count(*)-->
-        <!--FROM test_user-->
-        <!--WHERE user_manager.test_user.user_name = #{user_name}-->
+    <!--SELECT count(*)-->
+    <!--FROM test_user-->
+    <!--WHERE user_manager.test_user.user_name = #{user_name}-->
     <!--</select>-->
 
     <!--<insert id="insert" parameterType="hashmap" useGeneratedKeys="true">-->
-        <!--INSERT INTO test_user (user_name,pw)-->
-        <!--VALUES (#{user_name},#{pw});-->
+    <!--INSERT INTO test_user (user_name,pw)-->
+    <!--VALUES (#{user_name},#{pw});-->
     <!--</insert>-->
 
     <!--<update id="update" parameterType="hashmap">-->
-        <!--UPDATE test_user-->
-        <!--SET pw=#{pw}-->
-        <!--WHERE user_name=#{user_name}-->
+    <!--UPDATE test_user-->
+    <!--SET pw=#{pw}-->
+    <!--WHERE user_name=#{user_name}-->
     <!--</update>-->
 
 </mapper>

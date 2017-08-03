@@ -104,7 +104,7 @@
                 </li>
 
                 <li class="active"s><a href="/dailyReport"><i class="fa fa-link"></i> <span>모임 일지</span></a></li>
-                <li><a href="/management"><i class="fa fa-link"></i> <span>관리</span></a></li>
+                <li><a href="/cell-management"><i class="fa fa-link"></i> <span>관리</span></a></li>
 
             </ul>
         </section>

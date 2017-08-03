@@ -35,12 +35,28 @@ public class MainController {
         return mav;
     }
 
-    @RequestMapping(value = "/management", method = RequestMethod.GET)
-    public ModelAndView management() {
-        ModelAndView mav = new ModelAndView("/management");
+    @RequestMapping(value = "/cell-management", method = RequestMethod.GET)
+    public ModelAndView cell_management() {
+        ModelAndView mav = new ModelAndView("/cell_management");
 
         mav.addObject("memberData", indexService.selectMemberList());
         mav.addObject("totalcellData",indexService.selectCellList());
+
+        return mav;
+    }
+
+    @RequestMapping(value="/member-management",method = {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView member_management(@RequestParam HashMap<String, Object> params){
+        ModelAndView mav=new ModelAndView("/member_management");
+
+        if(params.isEmpty())
+            mav.addObject("memberData",indexService.selectMemberList());
+        else{
+
+            mav.addObject("memberData",indexService.selectMemberList(params));
+        }
+        mav.addObject("totalcellData",indexService.selectCellList());
+
 
         return mav;
     }
@@ -70,7 +86,6 @@ public class MainController {
 
         ModelAndView mav = new ModelAndView("/close");
 
-        logger.info("params");
 
         indexService.setLeader(params);
 
@@ -87,14 +102,13 @@ public class MainController {
     }
 
     //보여주기만
-    @RequestMapping(value="/celllist/{cellID}",method=RequestMethod.GET)
-    public ModelAndView showCellMember(@PathVariable("cellID") int cellID) throws Exception{
+    @RequestMapping(value="/celllist",method=RequestMethod.GET)
+    public ModelAndView showCellMember() throws Exception{
 
         ModelAndView mav=new ModelAndView("/list");
 
-        mav.addObject("memberData", indexService.selectCellMember(cellID));
+        mav.addObject("memberData", indexService.selectMemberList());
         mav.addObject("totalcellData",indexService.selectCellList());
-        mav.addObject("cellData",indexService.selectCellList(cellID));
 
         return mav;
     }
@@ -111,13 +125,13 @@ public class MainController {
     }
 
 
-    @RequestMapping(value="/cells",method=RequestMethod.GET)
-    public ModelAndView showCells()throws Exception{
-        ModelAndView mav=new ModelAndView("/cell_list");
-
-        mav.addObject("totalcellData",indexService.selectCellList());
-        return mav;
-    }
+//    @RequestMapping(value="/cells",method=RequestMethod.GET)
+//    public ModelAndView showCells()throws Exception{
+//        ModelAndView mav=new ModelAndView("/cell_list");
+//
+//        mav.addObject("totalcellData",indexService.selectCellList());
+//        return mav;
+//    }
 
     @RequestMapping(value="/newCell",method=RequestMethod.GET)
     public ModelAndView newcell() throws Exception{
@@ -145,10 +159,15 @@ public class MainController {
     @RequestMapping(value = "insertMember", method = RequestMethod.POST)
     public ModelAndView insertMember(@RequestParam HashMap<String, Object> params) throws Exception {
 
+        indexService.insertMember(params);
+
         ModelAndView mav = new ModelAndView("/close");
+        synchronized(mav)
+        {
+            mav.wait(100);
+        }
         //닫고 새로고침을 위한 view
 
-        indexService.insertMember(params);
         return mav;
     }
 
@@ -159,7 +178,8 @@ public class MainController {
 
         logger.info("updateMember");
         indexService.updateMember(params);
-        indexService.updateCellMembers(params);
+        //indexService.updateCellMembers(params);
+        //셀 이동
 
         return mav;
     }
@@ -168,7 +188,6 @@ public class MainController {
     public ModelAndView deleteMember(@PathVariable("memberID") int memberID) throws Exception {
         ModelAndView mav = new ModelAndView("/close");
 
-        logger.info("deleteMember");
         indexService.deleteMember(memberID);
 
         return mav;
@@ -178,7 +197,7 @@ public class MainController {
     public String deleteCell(@PathVariable("cellID") int cellID) throws Exception{
         indexService.deleteCell(cellID);
 
-        return "redirect:/management";
+        return "redirect:/cell-management";
     }
 
     @RequestMapping(value = "/report/{cellID}", method = RequestMethod.GET)

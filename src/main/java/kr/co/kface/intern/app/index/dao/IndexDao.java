@@ -16,6 +16,8 @@ public interface IndexDao {
 
     List<Map<String, Object>> selectMemberList();
 
+    List<Map<String, Object>> selectMemberList(HashMap<String, Object> params);
+
     List<Map<String, Object>> selectMember(int memberID);
 
     List<Map<String,Object>> selectCellList();

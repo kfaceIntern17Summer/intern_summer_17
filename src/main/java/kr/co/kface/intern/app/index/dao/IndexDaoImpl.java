@@ -35,6 +35,24 @@ public class IndexDaoImpl implements IndexDao {
         return MemList;
     }
 
+    @Override
+    public List<Map<String, Object>> selectMemberList(HashMap<String, Object> params) {
+        SqlSession sqlSession = sessionFactory.openSession();
+
+        List<Map<String, Object>> MemList = null;
+
+        if (params.get("keyField").equals("name")) {
+            MemList = sqlSession.selectList("sample.selectMemberListByName", params);
+        } else if (params.get("keyField").equals("cell")) {
+            MemList = sqlSession.selectList("selectMemberListByCell", params);
+        } else if (params.get("keyField").equals("phone")) {
+            MemList = sqlSession.selectList("sample.selectMemberListByPhone", params);
+        }
+        sqlSession.close();
+
+        return MemList;
+    }
+
 
     @Override
     public List<Map<String, Object>> selectMember(int memberID) {

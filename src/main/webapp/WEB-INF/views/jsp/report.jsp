@@ -143,7 +143,7 @@
                     </ul>
                 </li>
 
-                <li><a href="/management"><i class="fa fa-link"></i> <span>관리</span></a></li>
+                <li><a href="/cell-management"><i class="fa fa-link"></i> <span>관리</span></a></li>
 
             </ul>
         </section>

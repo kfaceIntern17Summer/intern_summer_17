@@ -122,28 +122,30 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <ul class="sidebar-menu" data-widget="tree">
 
                 <li class="header">Menu</li>
-                <li class="treeview active">
-                    <a href="#"><i class="fa fa-link"></i> <span>셀 목록</span>
-                        <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <%
-                            for (Map<String, Object> cells : totalcellData) {
-                        %>
+                <li class="active"><a href="/celllist"><i class="fa fa-link"></i> <span>셀 목록</span></a></li>
+                <%--<li class="treeview active">--%>
+                <%--<a href="#"><i class="fa fa-link"></i> <span>셀 목록</span>--%>
+                <%--<span class="pull-right-container">--%>
+                <%--<i class="fa fa-angle-left pull-right"></i>--%>
+                <%--</span>--%>
+                <%--</a>--%>
+                <%--<ul class="treeview-menu">--%>
+                <%--<%--%>
+                <%--for (Map<String, Object> cells : totalcellData) {--%>
+                <%--%>--%>
 
-                        <li><a href="/celllist/<%=cells.get("cell_idx")%>"><%=cells.get("cell_name")%>
-                        </a></li>
+                <%--<li><a href="/celllist/<%=cells.get("cell_idx")%>"><%=cells.get("cell_name")%>--%>
+                <%--</a></li>--%>
 
-                        <%
-                            }
-                        %>
-                    </ul>
-                </li>
+                <%--<%--%>
+                <%--}--%>
+                <%--%>--%>
+                <%--</ul>--%>
+                <%--</li>--%>
 
                 <li><a href="/dailyReport"><i class="fa fa-link"></i> <span>모임 일지</span></a></li>
-                <li><a href="/management"><i class="fa fa-link"></i> <span>셀 관리</span></a></li>
+                <li><a href="/cell-management"><i class="fa fa-link"></i> <span>셀 관리</span></a></li>
+                <li><a href="/member-management"><i class="fa fa-link"></i> <span>멤버 관리</span></a></li>
 
             </ul>
         </section>
@@ -153,7 +155,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <section class="content-header">
 
             <h1>
-               멤버 목록 </br>
+                멤버 목록 </br>
                 <%
                     try {
                         for (Map<String, Object> cell : cellData) {

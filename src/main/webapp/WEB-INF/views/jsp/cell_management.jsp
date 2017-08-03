@@ -73,31 +73,11 @@
             </div>
 
             <ul class="sidebar-menu" data-widget="tree">
-
                 <li class="header">Menu</li>
-                <li class="treeview">
-                    <a href="#"><i class="fa fa-link"></i> <span>셀 목록</span>
-                        <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <%
-                            for (Map<String, Object> cells : totalcellData) {
-                        %>
-
-                        <li><a href="/celllist/<%=cells.get("cell_idx")%>"><%=cells.get("cell_name")%>
-                        </a></li>
-
-                        <%
-                            }
-                        %>
-                    </ul>
-                </li>
-
+                <li><a href="/celllist"><i class="fa fa-link"></i> <span>셀 목록</span></a></li>
                 <li><a href="/dailyReport"><i class="fa fa-link"></i> <span>모임 일지</span></a></li>
-                <li class="active"><a href="/management"><i class="fa fa-link"></i> <span>셀 관리</span></a></li>
-
+                <li class="active"><a href="/cell-management"><i class="fa fa-link"></i> <span>셀 관리</span></a></li>
+                <li><a href="/member-management"><i class="fa fa-link"></i> <span>멤버 관리</span></a></li>
             </ul>
         </section>
     </aside>
@@ -106,7 +86,7 @@
     <div class="content-wrapper">
 
         <section class="content-header">
-            <h1> 관리 <br> </h1>
+            <h1> 셀 관리 <br> </h1>
         </section>
 
         <section class="content container-fluid">
@@ -131,9 +111,14 @@
                             <%
                                 for (Map<String, Object> cell : totalcellData) {
                             %>
-                            <tr>
-                                <td><a href="/cell/<%=cell.get("cell_idx")%>"><%=cell.get("cell_name")%>
-                                </a></td>
+                            <tr onclick="location.href='/cell/<%=cell.get("cell_idx")%>'"
+                                style="cursor:pointer;" onmouseover="this.style.background='#B2EBF4'"
+                                onmouseout="this.style.background='#ffffff'">
+
+                                <td>
+                                    <%--<a href="/cell/<%=cell.get("cell_idx")%>"><%=cell.get("cell_name")%></a>--%>
+                                    <%=cell.get("cell_name")%>
+                                </td>
                                 <td><%=cell.get("member_name")%>
                                 </td>
                                 <td><%=cell.get("period")%>
@@ -143,6 +128,7 @@
                             <%
                                 }
                             %>
+
                             </tbody>
                         </table>
                     </div>
@@ -154,45 +140,45 @@
 
             </div>
 
-            <div class="box box-info">
-                <div class="box-header with-border">
-                    <h3 class="box-title">멤버 목록</h3>
+            <%--<div class="box box-info">--%>
+                <%--<div class="box-header with-border">--%>
+                    <%--<h3 class="box-title">멤버 목록</h3>--%>
 
-                </div>
+                <%--</div>--%>
 
-                <div class="box-body">
-                    <div class="table-responsive">
-                        <table class="table no-margin">
-                            <thead>
-                            <tr>
-                                <th>이름</th>
-                                <th>생일</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <%
-                                for (Map<String, Object> map : memberData) {
-                            %>
-                            <tr>
-                                <td><a href="/member/<%=map.get("member_idx")%>" onclick="window.open(this.href, '', 'width=600 height=600');return false;" target="_blank"><%=map.get("member_name")%>
-                                </a></td>
-                                <td><%=map.get("birthday")%>
+                <%--<div class="box-body">--%>
+                    <%--<div class="table-responsive">--%>
+                        <%--<table class="table no-margin">--%>
+                            <%--<thead>--%>
+                            <%--<tr>--%>
+                                <%--<th>이름</th>--%>
+                                <%--<th>생일</th>--%>
+                            <%--</tr>--%>
+                            <%--</thead>--%>
+                            <%--<tbody>--%>
+                            <%--<%--%>
+                                <%--for (Map<String, Object> map : memberData) {--%>
+                            <%--%>--%>
+                            <%--<tr>--%>
+                                <%--<td><a href="/member/<%=map.get("member_idx")%>" onclick="window.open(this.href, '', 'width=600 height=600');return false;" target="_blank"><%=map.get("member_name")%>--%>
+                                <%--</a></td>--%>
+                                <%--<td><%=map.get("birthday")%>--%>
 
-                            </tr>
-                            <%
-                                }
-                            %>
+                            <%--</tr>--%>
+                            <%--<%--%>
+                                <%--}--%>
+                            <%--%>--%>
 
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                            <%--</tbody>--%>
+                        <%--</table>--%>
+                    <%--</div>--%>
+                <%--</div>--%>
 
-                <div class="box-footer clearfix">
-                    <a href="/newUser"  onclick="window.open(this.href, '', 'width=600 height=600');return false;"  class="btn btn-sm btn-default btn-flat pull-right">추가</a>
-                </div>
+                <%--<div class="box-footer clearfix">--%>
+                    <%--<a href="/newUser"  onclick="window.open(this.href, '', 'width=600 height=600');return false;"  class="btn btn-sm btn-default btn-flat pull-right">추가</a>--%>
+                <%--</div>--%>
 
-            </div>
+            <%--</div>--%>
 
         </section>
     </div>

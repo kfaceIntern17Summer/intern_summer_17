@@ -1,32 +1,40 @@
+<!DOCTYPE html>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.List" %>
-<!DOCTYPE html>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <%
     @SuppressWarnings("unchecked")
     List<Map<String, Object>> memberData = (List<Map<String, Object>>) request.getAttribute("memberData");
     @SuppressWarnings("unchecked")
     List<Map<String, Object>> totalcellData = (List<Map<String, Object>>) request.getAttribute("totalcellData");
-    @SuppressWarnings("unchecked")
-    List<Map<String, Object>> cellData = (List<Map<String, Object>>) request.getAttribute("cellData");
-
-    @SuppressWarnings("unchecked")
-    int cell_idx = (Integer) request.getAttribute("cellID");
-    int leader_idx = 0;
 %>
+
+<script>
+    function searchCheck(frm) {
+        //검색
+
+        if (frm.keyWord.value == "") {
+            alert("검색 단어를 입력하세요.");
+            frm.keyWord.focus();
+            return;
+        }
+        frm.submit();
+    }
+</script>
+
 <html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>xx교회청년부</title>
+
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="/resources/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/bower_components/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/resources/bower_components/Ionicons/css/ionicons.min.css">
-
     <link rel="stylesheet" href="/resources/dist/css/AdminLTE.min.css">
     <link rel="stylesheet" href="/resources/dist/css/skins/skin-blue.min.css">
-
 
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -63,9 +71,11 @@
         </nav>
 
     </header>
+
     <aside class="main-sidebar">
 
         <section class="sidebar">
+
             <div class="user-panel">
                 <div class="pull-left image">
                     <img src="/resources/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
@@ -76,144 +86,114 @@
                 </div>
             </div>
 
-
             <ul class="sidebar-menu" data-widget="tree">
 
                 <li class="header">Menu</li>
                 <li><a href="/celllist"><i class="fa fa-link"></i> <span>셀 목록</span></a></li>
                 <li><a href="/dailyReport"><i class="fa fa-link"></i> <span>모임 일지</span></a></li>
-                <li class="active"><a href="/cell-management"><i class="fa fa-link"></i> <span>셀 관리</span></a></li>
-                <li><a href="/member-management"><i class="fa fa-link"></i> <span>멤버 관리</span></a></li>
+                <li><a href="/cell-management"><i class="fa fa-link"></i> <span>셀 관리</span></a></li>
+                <li class="active"><a href="/member-management"><i class="fa fa-link"></i> <span>멤버 관리</span></a></li>
 
             </ul>
         </section>
     </aside>
 
+
     <div class="content-wrapper">
+
         <section class="content-header">
-
-            <%
-                for (Map<String, Object> cell : cellData) {
-            %>
-            <h1>
-                멤버 관리</br>
-                <small><%=cell.get("cell_name")%>
-                </small>
-                <%
-                    try {
-                        leader_idx = (Integer) cell.get("cell_leader_idx");
-                    } catch (NullPointerException e) {
-
-                    }
-                %>
-            </h1>
-
-            <small>리더: <%
-                if (cell.get("member_name") == null) {
-            %>
-                없음
-                <%
-                } else {
-                %>
-                <%=cell.get("member_name")%>
-                <%
-                    }
-
-                %>
-            </small>
-
-            </h1>
-
-            <%
-                }
-            %>
-
-
+            <h1>멤버 관리 <br></h1>
         </section>
 
         <section class="content container-fluid">
 
             <div class="box box-info">
                 <div class="box-header with-border">
-                    <h3 class="box-title">멤버</h3>
+                    <h3 class="box-title">멤버 목록</h3>
+
                 </div>
+
                 <div class="box-body">
                     <div class="table-responsive">
                         <table class="table no-margin">
                             <thead>
                             <tr>
                                 <th>이름</th>
-                                <th>직책</th>
                                 <th>생일</th>
+                                <th>전화번호</th>
+                                <th>셀</th>
                             </tr>
                             </thead>
                             <tbody>
-
-                            <%--리더인 경우 먼저 출력--%>
                             <%
-                                for (Map<String, Object> member : memberData) {
-                                    if ((Integer) member.get("member_idx") == leader_idx) {
+                                for (Map<String, Object> map : memberData) {
                             %>
-                            <tr>
-                                <td><a href="/member/<%=member.get("member_idx")%>"
-                                       onclick="window.open(this.href, '', 'width=600 height=600');return false;"
-                                       target="_blank"><%=member.get("member_name")%>
-                                </a></td>
-                                <td><span class="label label-success">
-                                    리더
-                                    </span></td>
-                                <td><%=member.get("birthday")%>
+                            <tr onclick="window.open('/member/<%=map.get("member_idx")%>', '', 'width=600 height=600');return false;"
+                                style="cursor:pointer;" onmouseover="this.style.background='#B2EBF4'"
+                                onmouseout="this.style.background='#ffffff'">
+                                <td>
+                                    <%--<a href="/member/<%=map.get("member_idx")%>"--%>
+                                    <%--onclick="window.open(this.href, '', 'width=600 height=600');return false;"--%>
+                                    <%--target="_blank"><%=map.get("member_name")%>--%>
+                                    <%--</a>--%>
+                                    <%=map.get("member_name")%>
                                 </td>
+                                <td><%=map.get("birthday")%>
+                                </td>
+                                <td><%=map.get("phone")%>
+                                </td>
+                                <%
+                                    if (map.get("cell_name") == null) {
+                                %>
+                                <td>없음</td>
+                                <%
+                                } else {
+                                %>
+                                <td><%=map.get("cell_name")%>
+                                </td>
+                                <%
+                                    }
+                                %>
                             </tr>
                             <%
-                                    }
                                 }
                             %>
 
-                            <%--나머지 멤버들 출력--%>
-                            <%
-                                for (Map<String, Object> member : memberData) {
-                                    if ((Integer) member.get("member_idx") == leader_idx) {
-                                        continue;
-                                    } else {
-                            %>
                             <tr>
-                                <td><a href="/member/<%=member.get("member_idx")%>"
-                                       onclick="window.open(this.href, '', 'width=600 height=600');return false;"
-                                       target="_blank"><%=member.get("member_name")%>
-                                </a></td>
-                                <td><span class="label label-success">
-                                    목원
-                                </span></td>
-                                <td><%=member.get("birthday")%>
+                                <td colspan="7"><br/>
+                                    <form name="search" method="post">
+                                        <select name="keyField">
+                                            <option value="0"> ----선택----</option>
+                                            <option value="name">이름</option>
+                                            <option value="cell">셀</option>
+                                            <option value="phone">전화번호</option>
+                                        </select>
+                                        <input type="text" name="keyWord"/>
+                                        <input type="button" value="검색" onclick="searchCheck(form)"/>
+                                    </form>
+
                                 </td>
                             </tr>
-                            <%
-                                    }
-                                }
-                            %>
+
                             </tbody>
                         </table>
                     </div>
                 </div>
+
                 <div class="box-footer clearfix">
-                    <a href="/deleteCell/<%=cell_idx%>" class="btn btn-sm btn-default btn-flat pull-right">셀 삭제</a>
                     <a href="/newUser" onclick="window.open(this.href, '', 'width=600 height=600');return false;"
-                       class="btn btn-sm btn-default btn-flat pull-right">멤버추가</a>
-                    <a href="/leader/<%=cell_idx%>"
-                       onclick="window.open(this.href, '', 'width=600 height=600');return false;" target="_blank"
-                       class="btn btn-sm btn-default btn-flat pull-left">
-                        리더 선택</a>
+                       class="btn btn-sm btn-default btn-flat pull-right">추가</a>
                 </div>
+
             </div>
 
         </section>
-
-        <script src="/resources/bower_components/jquery/dist/jquery.min.js"></script>
-        <script src="/resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="/resources/dist/js/adminlte.min.js"></script>
-
     </div>
 </div>
+
+<script src="/resources/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/resources/dist/js/adminlte.min.js"></script>
+
 </body>
 </html>

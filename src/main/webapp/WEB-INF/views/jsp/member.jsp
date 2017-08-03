@@ -55,22 +55,22 @@
                         </div>
                         <br>
 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">셀이동</label>
+                        <%--<div class="form-group">--%>
+                            <%--<label class="col-md-4 control-label">셀이동</label>--%>
 
-                            <select name="cell_idx" size="5" class="form-control col-md-4 col-xs-6">
-                                <%
-                                    for (Map<String, Object> cells : totalcellData) {
-                                %>
-                                <option value="<%=cells.get("cell_idx")%>"><%=cells.get("cell_name")%>
-                                </option>
-                                <%
-                                    }
-                                %>
-                            </select>
+                            <%--<select name="cell_idx" size="5" class="form-control col-md-4 col-xs-6">--%>
+                                <%--<%--%>
+                                    <%--for (Map<String, Object> cells : totalcellData) {--%>
+                                <%--%>--%>
+                                <%--<option value="<%=cells.get("cell_idx")%>"><%=cells.get("cell_name")%>--%>
+                                <%--</option>--%>
+                                <%--<%--%>
+                                    <%--}--%>
+                                <%--%>--%>
+                            <%--</select>--%>
 
-                        </div>
-                        <br>
+                        <%--</div>--%>
+                        <%--<br>--%>
                         <br>
                         <div class="form-group">
                             <label class="col-md-4 control-label">전화번호</label>
