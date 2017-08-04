@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
-
+import java.util.List;
 
 
 @Controller
@@ -70,6 +70,8 @@ public class MainController {
         return mav;
     }
 
+
+
     @RequestMapping(value = "/leader/{cellID}", method = RequestMethod.GET)
     public ModelAndView leader(@PathVariable("cellID") int cellID)throws Exception {
         ModelAndView mav = new ModelAndView("/leader");
@@ -121,6 +123,31 @@ public class MainController {
         mav.addObject("cellData",indexService.selectCellList(cellID));
         mav.addObject("totalcellData",indexService.selectCellList());
         mav.addObject("cellID",cellID);
+        return mav;
+    }
+
+    @RequestMapping(value="/addMember/{cellID}",method = RequestMethod.GET)
+    public ModelAndView addMember(@PathVariable("cellID") int cellID){
+        ModelAndView mav=new ModelAndView("/addMember");
+
+        mav.addObject("memberData",indexService.selectCellMemberEx(cellID));
+        mav.addObject("cellID",cellID);
+
+        return mav;
+    }
+
+    @RequestMapping(value = "/cellMember",method = RequestMethod.POST)
+    public ModelAndView updateCellMember(@RequestParam("checkRow") List<Integer>test, @RequestParam("cell_idx") int cell_idx){
+        ModelAndView mav = new ModelAndView("/close");
+
+        HashMap<String,Integer> params=new HashMap();
+
+        for(int i=0;i<test.size();i++){
+            params.put("cellID",cell_idx);
+            params.put("memberID",test.get(i).intValue());
+            indexService.addCellMember(params);
+        }
+
         return mav;
     }
 
@@ -183,6 +210,7 @@ public class MainController {
 
         return mav;
     }
+
 
     @RequestMapping(value = "/deleteMember/{memberID}")
     public ModelAndView deleteMember(@PathVariable("memberID") int memberID) throws Exception {

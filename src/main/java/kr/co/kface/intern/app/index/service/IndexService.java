@@ -57,6 +57,8 @@ public class IndexService {
         return indexDao.selectCellMember(cellID);
     }
 
+    public List<Map<String, Object>> selectCellMemberEx(int cellID){ return indexDao.selectCellMemberEx(cellID);}
+
     public void updateCellMembers(HashMap<String, Object> params) {
         indexDao.updateCellMembers(params);
     }
@@ -64,4 +66,10 @@ public class IndexService {
     public void setLeader(HashMap<String, Object> params){indexDao.setLeader(params);}
 
     public List<Map<String,Object>> selectReport(int cellID){return indexDao.selectReport(cellID);}
+
+
+
+    public void addCellMember(HashMap<String, Integer> params) {
+        indexDao.addCellMember(params);
+    }
 }

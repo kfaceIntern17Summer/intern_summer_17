@@ -58,6 +58,13 @@
         UPDATE cellmembers SET cell_idx=#{cell_idx} WHERE member_idx=#{member_idx};
     </update>
 
+    <select id="selectCellMemberEx" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        SELECT * FROM cellmembers as A
+        LEFT JOIN members as B ON A.member_idx=B.member_idx
+        LEFT JOIN cells AS C ON A.cell_idx=C.cell_idx
+        WHERE A.cell_idx!=#{cellID} AND A.member_idx!=C.cell_leader_idx ORDER BY C.cell_idx ASC;
+    </select>
+
     <select id="selectCellListByID" parameterType="java.lang.Integer" resultType="java.util.HashMap">
         SELECT * FROM cells AS A LEFT JOIN members as B ON A.cell_leader_idx=b.member_idx WHERE A.cell_idx=#{cellID};
     </select>
@@ -92,34 +99,7 @@
     </select>
 
 
-    <!--<delete id="delete" parameterType="String">-->
-    <!--DELETE FROM test_user WHERE user_name=#{user_name};-->
-    <!--</delete>-->
-
-    <!--<select id="selectUserList" parameterType="hashmap" resultType="hashmap">-->
-    <!--SELECT * FROM test_user;-->
-    <!--</select>-->
-
-    <!--<select id="selectUserPW" parameterType="hashmap" resultType="hashmap">-->
-    <!--SELECT * FROM test_user;-->
-    <!--</select>-->
-
-
-    <!--<select id="login" parameterType="hashmap" resultType="java.lang.Integer">-->
-    <!--SELECT count(*)-->
-    <!--FROM test_user-->
-    <!--WHERE user_manager.test_user.user_name = #{user_name}-->
-    <!--</select>-->
-
-    <!--<insert id="insert" parameterType="hashmap" useGeneratedKeys="true">-->
-    <!--INSERT INTO test_user (user_name,pw)-->
-    <!--VALUES (#{user_name},#{pw});-->
-    <!--</insert>-->
-
-    <!--<update id="update" parameterType="hashmap">-->
-    <!--UPDATE test_user-->
-    <!--SET pw=#{pw}-->
-    <!--WHERE user_name=#{user_name}-->
-    <!--</update>-->
-
+    <update id="addCellMember" parameterType="java.util.HashMap">
+        UPDATE cellmembers SET cell_idx=#{cellID} WHERE member_idx=#{memberID};
+    </update>
 </mapper>

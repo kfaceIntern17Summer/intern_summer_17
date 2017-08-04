@@ -53,6 +53,15 @@ public class IndexDaoImpl implements IndexDao {
         return MemList;
     }
 
+    @Override
+    public List<Map<String, Object>> selectCellMemberEx(int cellID) {
+        SqlSession sqlSession=sessionFactory.openSession();
+        List<Map<String, Object>> MemList=sqlSession.selectList("sample.selectCellMemberEx",cellID);
+        sqlSession.close();
+
+        return MemList;
+    }
+
 
     @Override
     public List<Map<String, Object>> selectMember(int memberID) {
@@ -144,6 +153,15 @@ public class IndexDaoImpl implements IndexDao {
         sqlSession.close();
         return report;
     }
+
+    @Override
+    public void addCellMember(HashMap<String, Integer> params) {
+        SqlSession sqlSession = sessionFactory.openSession();
+        sqlSession.update("sample.addCellMember",params);
+
+        sqlSession.close();
+    }
+
 
     @Override
     public void deleteMember(int memberID) {

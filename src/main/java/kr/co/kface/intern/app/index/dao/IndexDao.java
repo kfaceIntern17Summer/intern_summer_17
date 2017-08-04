@@ -18,6 +18,8 @@ public interface IndexDao {
 
     List<Map<String, Object>> selectMemberList(HashMap<String, Object> params);
 
+    List<Map<String, Object>> selectCellMemberEx(int cellID);
+
     List<Map<String, Object>> selectMember(int memberID);
 
     List<Map<String,Object>> selectCellList();
@@ -37,6 +39,8 @@ public interface IndexDao {
     void setLeader(HashMap<String, Object> params);
 
     List<Map<String,Object>> selectReport(int cellID);
+
+    void addCellMember(HashMap<String, Integer> params);
 }
 
 

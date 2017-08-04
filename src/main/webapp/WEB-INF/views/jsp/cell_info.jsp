@@ -91,7 +91,6 @@
 
     <div class="content-wrapper">
         <section class="content-header">
-
             <%
                 for (Map<String, Object> cell : cellData) {
             %>
@@ -154,11 +153,11 @@
                                 for (Map<String, Object> member : memberData) {
                                     if ((Integer) member.get("member_idx") == leader_idx) {
                             %>
-                            <tr>
-                                <td><a href="/member/<%=member.get("member_idx")%>"
-                                       onclick="window.open(this.href, '', 'width=600 height=600');return false;"
-                                       target="_blank"><%=member.get("member_name")%>
-                                </a></td>
+                            <tr onclick="window.open('/member/<%=member.get("member_idx")%>','', 'width=600 height=600');return false;"
+                                style="cursor:pointer;" onmouseover="this.style.background='#B2EBF4'"
+                                onmouseout="this.style.background='#ffffff'">
+                                <td><%=member.get("member_name")%>
+                                </td>
                                 <td><span class="label label-success">
                                     리더
                                     </span></td>
@@ -177,11 +176,11 @@
                                         continue;
                                     } else {
                             %>
-                            <tr>
-                                <td><a href="/member/<%=member.get("member_idx")%>"
-                                       onclick="window.open(this.href, '', 'width=600 height=600');return false;"
-                                       target="_blank"><%=member.get("member_name")%>
-                                </a></td>
+                            <tr onclick="window.open('/member/<%=member.get("member_idx")%>','', 'width=600 height=600');return false;"
+                                style="cursor:pointer;" onmouseover="this.style.background='#B2EBF4'"
+                                onmouseout="this.style.background='#ffffff'">
+                                <td><%=member.get("member_name")%>
+                                </td>
                                 <td><span class="label label-success">
                                     목원
                                 </span></td>
@@ -198,7 +197,8 @@
                 </div>
                 <div class="box-footer clearfix">
                     <a href="/deleteCell/<%=cell_idx%>" class="btn btn-sm btn-default btn-flat pull-right">셀 삭제</a>
-                    <a href="/newUser" onclick="window.open(this.href, '', 'width=600 height=600');return false;"
+                    <a href="/addMember/<%=cell_idx%>"
+                       onclick="window.open(this.href, '', 'width=600 height=600');return false;"
                        class="btn btn-sm btn-default btn-flat pull-right">멤버추가</a>
                     <a href="/leader/<%=cell_idx%>"
                        onclick="window.open(this.href, '', 'width=600 height=600');return false;" target="_blank"
