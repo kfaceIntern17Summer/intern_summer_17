@@ -17,8 +17,6 @@ public class IndexService {
     @Resource(name = "indexDao")//IndexDaoImpl Repository 이름
     private IndexDao indexDao;
 
-
-
     public void insertMember(HashMap<String, Object> params) {
         indexDao.insertMember(params);
     }
@@ -66,8 +64,6 @@ public class IndexService {
     public void setLeader(HashMap<String, Object> params){indexDao.setLeader(params);}
 
     public List<Map<String,Object>> selectReport(int cellID){return indexDao.selectReport(cellID);}
-
-
 
     public void addCellMember(HashMap<String, Integer> params) {
         indexDao.addCellMember(params);

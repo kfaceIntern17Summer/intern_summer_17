@@ -1,6 +1,5 @@
 package kr.co.kface.intern.app.index.dao;
 
-import javafx.scene.control.Cell;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.logging.log4j.LogManager;

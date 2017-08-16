@@ -24,13 +24,15 @@
     </insert>
 
     <select id="selectOneMember" parameterType="java.lang.Integer" resultType="java.util.HashMap">
-        select * from members where member_idx=#{memberID}
+        SELECT * FROM members AS A
+        LEFT JOIN cellmembers AS B ON A.member_idx= B.member_idx
+        LEFT JOIN cells AS C ON B.cell_idx=C.cell_idx WHERE A.member_idx=#{memberID};
     </select>
 
     <update id="updateMember" parameterType="java.util.HashMap">
         UPDATE members
         SET member_name=#{member_name},birthday=#{birthday},phone=#{phone},email=#{email},address=#{address}
-        WHERE member_idx=#{member_idx}
+        WHERE member_idx=#{member_idx};
     </update>
 
     <delete id="deleteMember" parameterType="java.lang.Integer">
@@ -59,10 +61,10 @@
     </update>
 
     <select id="selectCellMemberEx" parameterType="java.lang.Integer" resultType="java.util.HashMap">
-        SELECT * FROM cellmembers as A
-        LEFT JOIN members as B ON A.member_idx=B.member_idx
-        LEFT JOIN cells AS C ON A.cell_idx=C.cell_idx
-        WHERE A.cell_idx!=#{cellID} AND A.member_idx!=C.cell_leader_idx ORDER BY C.cell_idx ASC;
+      SELECT * FROM cellmembers as A
+      LEFT JOIN members as B ON A.member_idx=B.member_idx
+      LEFT JOIN cells AS C ON A.cell_idx=C.cell_idx
+      WHERE A.cell_idx!=#{cellID} AND A.member_idx!=C.cell_leader_idx OR A.cell_idx=0 ORDER BY C.cell_idx ASC;
     </select>
 
     <select id="selectCellListByID" parameterType="java.lang.Integer" resultType="java.util.HashMap">
@@ -102,4 +104,9 @@
     <update id="addCellMember" parameterType="java.util.HashMap">
         UPDATE cellmembers SET cell_idx=#{cellID} WHERE member_idx=#{memberID};
     </update>
+
+
+
+
+
 </mapper>

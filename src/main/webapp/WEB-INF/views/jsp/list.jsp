@@ -8,10 +8,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     @SuppressWarnings("unchecked")
-    List<Map<String, Object>> memberData = (List<Map<String, Object>>) request.getAttribute("memberData");
-    @SuppressWarnings("unchecked")
-    List<Map<String, Object>> cellData = (List<Map<String, Object>>) request.getAttribute("cellData");
-    @SuppressWarnings("unchecked")
     List<Map<String, Object>> totalcellData = (List<Map<String, Object>>) request.getAttribute("totalcellData");
 
 %>
@@ -154,24 +150,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="content-wrapper">
         <section class="content-header">
 
-            <h1>
-                멤버 목록 </br>
-                <%
-                    try {
-                        for (Map<String, Object> cell : cellData) {
-                %>
-                <small>셀 이름: <%=cell.get("cell_name")%> 리더: <%=cell.get("member_name")%>
-                </small>
-                <%
-                    }
-                } catch (NullPointerException e) {
+            <%--<h1>--%>
+            <%--멤버 목록 </br>--%>
+            <%--<%--%>
+            <%--try {--%>
+            <%--for (Map<String, Object> cell : cellData) {--%>
+            <%--%>--%>
+            <%--<small>셀 이름: <%=cell.get("cell_name")%> 리더: <%=cell.get("member_name")%>--%>
+            <%--</small>--%>
+            <%--<%--%>
+            <%--}--%>
+            <%--} catch (NullPointerException e) {--%>
 
-                %>
-                <small>All member</small>
-                <%
-                    }
-                %>
-            </h1>
+            <%--%>--%>
+            <%--<small>All member</small>--%>
+            <%--<%--%>
+            <%--}--%>
+            <%--%>--%>
+            <%--</h1>--%>
+            <h1> 셀 목록 <br></h1>
 
         </section>
 
@@ -184,26 +181,53 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="box-body">
                     <div class="table-responsive">
                         <table class="table no-margin">
+                            <%--<thead>--%>
+                            <%--<tr>--%>
+                            <%--<th>이름</th>--%>
+                            <%--<th>생일</th>--%>
+                            <%--</tr>--%>
+                            <%--</thead>--%>
+                            <%--<tbody>--%>
+                            <%--<%--%>
+                            <%--for (Map<String, Object> map : memberData) {--%>
+                            <%--%>--%>
+                            <%--<tr>--%>
+                            <%--<td><%=map.get("member_name")%>--%>
+                            <%--</td>--%>
+                            <%--<td><%=map.get("birthday")%>--%>
+
+                            <%--</tr>--%>
+                            <%--<%--%>
+                            <%--}--%>
+                            <%--%>--%>
+
+                            <%--</tbody>--%>
                             <thead>
                             <tr>
-                                <th>이름</th>
-                                <th>생일</th>
+                                <th>셀 이름</th>
+                                <th>셀 리더</th>
                             </tr>
                             </thead>
                             <tbody>
                             <%
-                                for (Map<String, Object> map : memberData) {
+                                for (Map<String, Object> cell : totalcellData) {
                             %>
-                            <tr>
-                                <td><%=map.get("member_name")%>
+                            <tr onclick="location.href='/celllist/<%=cell.get("cell_idx")%>'"
+                                style="cursor:pointer;" onmouseover="this.style.background='#B2EBF4'"
+                                onmouseout="this.style.background='#ffffff'">
+
+                                <td>
+                                    <%=cell.get("cell_name")%>
                                 </td>
-                                <td><%=map.get("birthday")%>
+                                <td><%=cell.get("member_name")%>
+                                </td>
+                                <td><%=cell.get("period")%>
+                                </td>
 
                             </tr>
                             <%
                                 }
                             %>
-
                             </tbody>
                         </table>
                     </div>

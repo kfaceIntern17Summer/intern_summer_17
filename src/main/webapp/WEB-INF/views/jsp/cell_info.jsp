@@ -6,8 +6,6 @@
     @SuppressWarnings("unchecked")
     List<Map<String, Object>> memberData = (List<Map<String, Object>>) request.getAttribute("memberData");
     @SuppressWarnings("unchecked")
-    List<Map<String, Object>> totalcellData = (List<Map<String, Object>>) request.getAttribute("totalcellData");
-    @SuppressWarnings("unchecked")
     List<Map<String, Object>> cellData = (List<Map<String, Object>>) request.getAttribute("cellData");
 
     @SuppressWarnings("unchecked")
@@ -19,18 +17,27 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>xx교회청년부</title>
+    <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="/resources/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="/resources/bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
     <link rel="stylesheet" href="/resources/bower_components/Ionicons/css/ionicons.min.css">
-
+    <!-- Theme style -->
     <link rel="stylesheet" href="/resources/dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+          page. However, you can choose any other skin. Make sure you
+          apply the skin class to the body tag so the changes take effect. -->
     <link rel="stylesheet" href="/resources/dist/css/skins/skin-blue.min.css">
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.13/js/dataTables.bootstrap4.min.js"></script>
 
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-
+    <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
@@ -95,9 +102,8 @@
                 for (Map<String, Object> cell : cellData) {
             %>
             <h1>
-                멤버 관리</br>
-                <small><%=cell.get("cell_name")%>
-                </small>
+                <%=cell.get("cell_name")%></br>
+
                 <%
                     try {
                         leader_idx = (Integer) cell.get("cell_leader_idx");
@@ -131,87 +137,161 @@
         </section>
 
         <section class="content container-fluid">
-
-            <div class="box box-info">
-                <div class="box-header with-border">
-                    <h3 class="box-title">멤버</h3>
-                </div>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('#example').DataTable();
+                });
+            </script>
+            <div class="box">
                 <div class="box-body">
-                    <div class="table-responsive">
-                        <table class="table no-margin">
-                            <thead>
-                            <tr>
-                                <th>이름</th>
-                                <th>직책</th>
-                                <th>생일</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-
-                            <%--리더인 경우 먼저 출력--%>
-                            <%
-                                for (Map<String, Object> member : memberData) {
-                                    if ((Integer) member.get("member_idx") == leader_idx) {
-                            %>
-                            <tr onclick="window.open('/member/<%=member.get("member_idx")%>','', 'width=600 height=600');return false;"
-                                style="cursor:pointer;" onmouseover="this.style.background='#B2EBF4'"
-                                onmouseout="this.style.background='#ffffff'">
-                                <td><%=member.get("member_name")%>
-                                </td>
-                                <td><span class="label label-success">
+                    <table id="example" class="table-hover table table-striped table-bordered" cellspacing="0" width="100%">
+                        <thead>
+                        <tr>
+                            <th>이름</th>
+                            <th>직책</th>
+                            <th>생일</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <%
+                            for (Map<String, Object> member : memberData) {
+                                if ((Integer) member.get("member_idx") == leader_idx) {
+                        %>
+                        <tr onclick="location.href='/member/<%=member.get("member_idx")%>'">
+                            <td><%=member.get("member_name")%>
+                            </td>
+                            <td><span class="label label-success">
                                     리더
                                     </span></td>
-                                <td><%=member.get("birthday")%>
-                                </td>
-                            </tr>
-                            <%
-                                    }
+                            <td><%=member.get("birthday")%>
+                            </td>
+                        </tr>
+                        <%
                                 }
-                            %>
+                            }
+                        %>
 
-                            <%--나머지 멤버들 출력--%>
-                            <%
-                                for (Map<String, Object> member : memberData) {
-                                    if ((Integer) member.get("member_idx") == leader_idx) {
-                                        continue;
-                                    } else {
-                            %>
-                            <tr onclick="window.open('/member/<%=member.get("member_idx")%>','', 'width=600 height=600');return false;"
-                                style="cursor:pointer;" onmouseover="this.style.background='#B2EBF4'"
-                                onmouseout="this.style.background='#ffffff'">
-                                <td><%=member.get("member_name")%>
-                                </td>
-                                <td><span class="label label-success">
+                        <%--나머지 멤버들 출력--%>
+                        <%
+                            for (Map<String, Object> member : memberData) {
+                                if ((Integer) member.get("member_idx") == leader_idx) {
+                                    continue;
+                                } else {
+                        %>
+                        <tr onclick="location.href='/member/<%=member.get("member_idx")%>'">
+                            <td><%=member.get("member_name")%>
+                            </td>
+                            <td><span class="label label-success">
                                     목원
                                 </span></td>
-                                <td><%=member.get("birthday")%>
-                                </td>
-                            </tr>
-                            <%
-                                    }
+                            <td><%=member.get("birthday")%>
+                            </td>
+                        </tr>
+                        <%
                                 }
-                            %>
-                            </tbody>
-                        </table>
-                    </div>
+                            }
+                        %>
+                        </tbody>
+                    </table>
                 </div>
                 <div class="box-footer clearfix">
                     <a href="/deleteCell/<%=cell_idx%>" class="btn btn-sm btn-default btn-flat pull-right">셀 삭제</a>
-                    <a href="/addMember/<%=cell_idx%>"
-                       onclick="window.open(this.href, '', 'width=600 height=600');return false;"
-                       class="btn btn-sm btn-default btn-flat pull-right">멤버추가</a>
-                    <a href="/leader/<%=cell_idx%>"
-                       onclick="window.open(this.href, '', 'width=600 height=600');return false;" target="_blank"
-                       class="btn btn-sm btn-default btn-flat pull-left">
-                        리더 선택</a>
+
+                    <a href="/addMember/<%=cell_idx%>" class="btn btn-sm btn-default btn-flat pull-right">멤버추가</a>
+                    <a href="/leader/<%=cell_idx%>" class="btn btn-sm btn-default btn-flat pull-left">리더 선택</a>
+                    <%--<a href="/addMember/<%=cell_idx%>"--%>
+                       <%--onclick="window.open(this.href, '', 'width=600 height=600');return false;"--%>
+                       <%--class="btn btn-sm btn-default btn-flat pull-right">멤버추가</a>--%>
+                    <%--<a href="/leader/<%=cell_idx%>"--%>
+                       <%--onclick="window.open(this.href, '', 'width=600 height=600');return false;" target="_blank"--%>
+                       <%--class="btn btn-sm btn-default btn-flat pull-left">--%>
+                        <%--리더 선택</a>--%>
                 </div>
             </div>
+
+            <%--<div class="box box-info">--%>
+                <%--<div class="box-header with-border">--%>
+                    <%--<h3 class="box-title">멤버</h3>--%>
+                <%--</div>--%>
+                <%--<div class="box-body">--%>
+                    <%--<div class="table-responsive">--%>
+                        <%--<table class="table no-margin">--%>
+                            <%--<thead>--%>
+                            <%--<tr>--%>
+                                <%--<th>이름</th>--%>
+                                <%--<th>직책</th>--%>
+                                <%--<th>생일</th>--%>
+                            <%--</tr>--%>
+                            <%--</thead>--%>
+                            <%--<tbody>--%>
+
+                            <%--&lt;%&ndash;리더인 경우 먼저 출력&ndash;%&gt;--%>
+                            <%--<%--%>
+                                <%--for (Map<String, Object> member : memberData) {--%>
+                                    <%--if ((Integer) member.get("member_idx") == leader_idx) {--%>
+                            <%--%>--%>
+                            <%--<tr onclick="window.open('/member/<%=member.get("member_idx")%>','', 'width=600 height=600');return false;"--%>
+                                <%--style="cursor:pointer;" onmouseover="this.style.background='#B2EBF4'"--%>
+                                <%--onmouseout="this.style.background='#ffffff'">--%>
+                                <%--<td><%=member.get("member_name")%>--%>
+                                <%--</td>--%>
+                                <%--<td><span class="label label-success">--%>
+                                    <%--리더--%>
+                                    <%--</span></td>--%>
+                                <%--<td><%=member.get("birthday")%>--%>
+                                <%--</td>--%>
+                            <%--</tr>--%>
+                            <%--<%--%>
+                                    <%--}--%>
+                                <%--}--%>
+                            <%--%>--%>
+
+                            <%--&lt;%&ndash;나머지 멤버들 출력&ndash;%&gt;--%>
+                            <%--<%--%>
+                                <%--for (Map<String, Object> member : memberData) {--%>
+                                    <%--if ((Integer) member.get("member_idx") == leader_idx) {--%>
+                                        <%--continue;--%>
+                                    <%--} else {--%>
+                            <%--%>--%>
+                            <%--<tr onclick="window.open('/member/<%=member.get("member_idx")%>','', 'width=600 height=600');return false;"--%>
+                                <%--style="cursor:pointer;" onmouseover="this.style.background='#B2EBF4'"--%>
+                                <%--onmouseout="this.style.background='#ffffff'">--%>
+                                <%--<td><%=member.get("member_name")%>--%>
+                                <%--</td>--%>
+                                <%--<td><span class="label label-success">--%>
+                                    <%--목원--%>
+                                <%--</span></td>--%>
+                                <%--<td><%=member.get("birthday")%>--%>
+                                <%--</td>--%>
+                            <%--</tr>--%>
+                            <%--<%--%>
+                                    <%--}--%>
+                                <%--}--%>
+                            <%--%>--%>
+                            <%--</tbody>--%>
+                        <%--</table>--%>
+                    <%--</div>--%>
+                <%--</div>--%>
+                <%--<div class="box-footer clearfix">--%>
+                    <%--<a href="/deleteCell/<%=cell_idx%>" class="btn btn-sm btn-default btn-flat pull-right">셀 삭제</a>--%>
+                    <%--<a href="/addMember/<%=cell_idx%>"--%>
+                       <%--onclick="window.open(this.href, '', 'width=600 height=600');return false;"--%>
+                       <%--class="btn btn-sm btn-default btn-flat pull-right">멤버추가</a>--%>
+                    <%--<a href="/leader/<%=cell_idx%>"--%>
+                       <%--onclick="window.open(this.href, '', 'width=600 height=600');return false;" target="_blank"--%>
+                       <%--class="btn btn-sm btn-default btn-flat pull-left">--%>
+                        <%--리더 선택</a>--%>
+                <%--</div>--%>
+            <%--</div>--%>
 
         </section>
 
         <script src="/resources/bower_components/jquery/dist/jquery.min.js"></script>
         <script src="/resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="/resources/dist/js/adminlte.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
+
 
     </div>
 </div>
